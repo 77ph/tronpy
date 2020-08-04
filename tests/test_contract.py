@@ -67,9 +67,16 @@ def test_contract_create():
 
     cntr = Contract(name="SimpleStore", bytecode=bytecode, abi=abi)
 
+    # https://developers.tron.network/docs/setting-a-fee-limit-on-deployexecution
+    # The maximum limit is 1000 TRX, or 1e9 SUN. Setting it to a value larger than 1e9 will produce an error.
+    # When deploying large contracts or running complex functions, this limit may need to be increased up to 1000 TRX. However, check out timeouts, infinite loops, illegal operations, and non-existent account transfer sections are why setting a higher limit may sometimes be bad practice.
+
+    # The maximum limit is 1000 TRX, or 1e9 SUN. Setting it to a value larger than 1e9 will produce an error.
+    # feeLimit: 1e9,  // Set fee limit
+
     txn = (
         client.trx.deploy_contract('TGQgfK497YXmjdgvun9Bg5Zu3xE15v17cu', cntr)
-        .fee_limit(1_000_000)
+        .fee_limit(1000000000)
         .build()
         .sign(priv_key)
         .inspect()
