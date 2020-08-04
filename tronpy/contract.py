@@ -5,6 +5,7 @@ import random
 from tronpy.exceptions import DoubleSpending
 from tronpy.abi import trx_abi
 import tronpy
+from tronpy import keys
 
 
 def keccak256(data: bytes) -> bytes:
